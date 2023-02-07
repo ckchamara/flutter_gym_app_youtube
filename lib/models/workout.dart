@@ -12,9 +12,10 @@ class Workout extends Equatable{
     List<Exercise> exercises = [];
     int index = 0;
     int startTime = 0;
-    for (var ex in json['excercises'] as Iterable) {
-      exercises.add(Exercise.fromJson(json, index, startTime));
+    for (var ex in json['exercises'] as Iterable) {
+      exercises.add(Exercise.fromJson(ex, index, startTime));
       index++;
+      print("..$index...");
       startTime += exercises.last.prelude! + exercises.last.duration!;
     }
     return Workout(title: json['title'] as String?, exercises: exercises);
@@ -25,4 +26,7 @@ class Workout extends Equatable{
   @override
   // TODO: implement props
   List<Object?> get props => [title,exercises];
+
+  @override
+  bool get stringify => true;
 }
