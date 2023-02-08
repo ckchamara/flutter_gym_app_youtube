@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 
 import 'exercise.dart';
 
-class Workout extends Equatable{
+class Workout extends Equatable {
   final String? title;
   final List<Exercise> exercises;
 
-  Workout({required this.title, required this.exercises});
+  const Workout({required this.title, required this.exercises});
 
   factory Workout.fromJson(Map<String, dynamic> json) {
     List<Exercise> exercises = [];
@@ -24,13 +24,14 @@ class Workout extends Equatable{
   Map<String, dynamic> toJson() => {'title': title, 'exercises': exercises};
 
   int getTotal() {
-    exercises.fold(0, (previousValue, ex) =>previousValue + ex.duration! + ex.prelude!);
-    return 1;
+    int time = exercises.fold(
+        0, (previousValue, ex) => previousValue + ex.duration! + ex.prelude!);
+    return time;
   }
 
   @override
   // TODO: implement props
-  List<Object?> get props => [title,exercises];
+  List<Object?> get props => [title, exercises];
 
   @override
   bool get stringify => true;

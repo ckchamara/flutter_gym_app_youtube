@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_app_complete/helpers.dart';
 import 'package:flutter_bloc_app_complete/models/workout.dart';
 
 import '../blocs/workouts_cubit.dart';
@@ -34,6 +35,7 @@ class HomeScreen extends StatelessWidget {
                             icon: Icon(Icons.edit),
                           ),
                           title: Text(workout.title!),
+                          trailing: Text(formatTime(workout.getTotal(), true)),
                         ),
                     body: ListView.builder(
                         shrinkWrap: true,
@@ -44,11 +46,9 @@ class HomeScreen extends StatelessWidget {
                               visualDensity: const VisualDensity(
                                   vertical: 0,
                                   horizontal: VisualDensity.minimumDensity),
-                              leading: const IconButton(
-                                onPressed: null,
-                                icon: Icon(Icons.edit),
-                              ),
+                              leading: Text(formatTime(workout.exercises[index].prelude!, true)),
                               title: Text(workout.exercises[index].title!),
+                              trailing: Text(formatTime(workout.exercises[index].duration!, true)),
                             ))))
                 .toList(),
           ),
