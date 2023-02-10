@@ -5,12 +5,14 @@ import '../states/workout_states.dart';
 
 class WorkoutCubit extends Cubit<WorkoutState> {
   // WorkoutCubit(super.initialState);
-  WorkoutCubit():super(const WorkoutInitial());
+  WorkoutCubit():super(const WorkoutInitialState());
 
   editWorkout(Workout workout, int index){
-    return emit(WorkoutEditing(workout, index));
+    return emit(WorkoutEditingState(workout, index));
   }
 
-
+   goHome(){
+    emit(const WorkoutInitialState());
+  }
 
 }
