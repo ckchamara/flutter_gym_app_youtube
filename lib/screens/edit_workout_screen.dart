@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app_complete/blocs/workout_cubit.dart';
 import 'package:flutter_bloc_app_complete/helpers.dart';
@@ -25,6 +25,9 @@ class EditWorkoutScreen extends StatelessWidget {
                 Exercise exercise = we.workout!.exercises[index];
                 return ListTile(
                   leading: Text(formatTime(exercise.prelude!, true)),
+                  title: Text(exercise.title!),
+                  trailing: Text(formatTime(exercise.duration!, true)),
+                  onTap: ()=> BlocProvider.of<WorkoutCubit>(context).editExercise(index),
                 );
               }),
         );
