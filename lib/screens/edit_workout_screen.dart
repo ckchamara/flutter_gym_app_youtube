@@ -5,6 +5,8 @@ import 'package:flutter_bloc_app_complete/helpers.dart';
 import 'package:flutter_bloc_app_complete/models/exercise.dart';
 import 'package:flutter_bloc_app_complete/states/workout_states.dart';
 
+import 'edit_excercise_screen.dart';
+
 class EditWorkoutScreen extends StatelessWidget {
   const EditWorkoutScreen({Key? key}) : super(key: key);
 
@@ -23,12 +25,16 @@ class EditWorkoutScreen extends StatelessWidget {
               itemCount: we.workout!.exercises.length,
               itemBuilder: (context, index){
                 Exercise exercise = we.workout!.exercises[index];
-                return ListTile(
-                  leading: Text(formatTime(exercise.prelude!, true)),
-                  title: Text(exercise.title!),
-                  trailing: Text(formatTime(exercise.duration!, true)),
-                  onTap: ()=> BlocProvider.of<WorkoutCubit>(context).editExercise(index),
-                );
+                if(we.exiIndex == index){
+                  return EditExerciseScreen(workout:we.workout, index: we.index, exIndex: we.exiIndex);
+                }else {
+                  return ListTile(
+                    leading: Text(formatTime(exercise.prelude!, true)),
+                    title: Text(exercise.title!),
+                    trailing: Text(formatTime(exercise.duration!, true)),
+                    onTap: ()=> BlocProvider.of<WorkoutCubit>(context).editExercise(index),
+                  );
+                }
               }),
         );
       },

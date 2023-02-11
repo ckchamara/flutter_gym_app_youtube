@@ -22,8 +22,7 @@ class Exercise extends Equatable {
           prelude: json["prelude"],
           duration: json["duration"],
           index: index,
-          startTime: startTime
-      );
+          startTime: startTime);
 
   Map<String, dynamic> toJson() => {
         "title": title,
@@ -31,12 +30,21 @@ class Exercise extends Equatable {
         "duration": duration,
       };
 
+  Exercise copyWith(
+          {int? prelude,
+          String? title,
+          int? duration,
+          int? index,
+          int? startTime}) =>
+      Exercise(
+          title: title ?? this.title,
+          prelude: prelude ?? this.prelude,
+          duration: duration ?? this.duration);
+
   @override
   // TODO: implement props
   List<Object?> get props => [title, prelude, duration, index, startTime];
 
   @override
   bool get stringify => true;
-
-
 }

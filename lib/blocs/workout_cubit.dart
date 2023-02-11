@@ -12,6 +12,7 @@ class WorkoutCubit extends Cubit<WorkoutState> {
   }
 
   editExercise(int? exIndex) {
+    print("..my exercise index is $exIndex");
     return emit(WorkoutEditingState(state.workout, (state as WorkoutEditingState).index, exIndex));
   }
 
