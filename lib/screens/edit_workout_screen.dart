@@ -25,8 +25,8 @@ class EditWorkoutScreen extends StatelessWidget {
               itemCount: we.workout!.exercises.length,
               itemBuilder: (context, index){
                 Exercise exercise = we.workout!.exercises[index];
-                if(we.exiIndex == index){
-                  return EditExerciseScreen(workout:we.workout, index: we.index, exIndex: we.exiIndex);
+                if(we.exIndex == index){
+                  return EditExerciseScreen(workout:we.workout, workoutIndex: we.workoutIndex, exIndex: we.exIndex);
                 }else {
                   return ListTile(
                     leading: Text(formatTime(exercise.prelude!, true)),

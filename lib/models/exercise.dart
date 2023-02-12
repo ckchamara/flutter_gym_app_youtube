@@ -39,7 +39,10 @@ class Exercise extends Equatable {
       Exercise(
           title: title ?? this.title,
           prelude: prelude ?? this.prelude,
-          duration: duration ?? this.duration);
+          duration: duration ?? this.duration,
+          index: index ?? this.index,
+          startTime: startTime ?? this.startTime
+      );
 
   @override
   // TODO: implement props

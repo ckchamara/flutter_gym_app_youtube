@@ -7,16 +7,17 @@ class WorkoutCubit extends Cubit<WorkoutState> {
   // WorkoutCubit(super.initialState);
   WorkoutCubit() : super(const WorkoutInitialState());
 
-  editWorkout(Workout workout, int index) {
-    return emit(WorkoutEditingState(workout, index, null));
+  editWorkout(Workout workout, int workoutIndex) {
+    return emit(WorkoutEditingState(workout, workoutIndex, null));
   }
 
   editExercise(int? exIndex) {
     print("..my exercise index is $exIndex");
-    return emit(WorkoutEditingState(state.workout, (state as WorkoutEditingState).index, exIndex));
+    return emit(WorkoutEditingState(state.workout, (state as WorkoutEditingState).workoutIndex, exIndex));
   }
 
   goHome() {
     emit(const WorkoutInitialState());
   }
+
 }
