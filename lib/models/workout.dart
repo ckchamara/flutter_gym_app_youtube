@@ -29,6 +29,13 @@ class Workout extends Equatable {
     return time;
   }
 
+  Exercise gerCurrentExercise(int? elapsed) {
+    return exercises.lastWhere((element) => element.startTime! <= elapsed!);
+  }
+
+  copyWith({String? title}) =>
+      Workout(title: title ?? this.title, exercises: exercises);
+
   @override
   // TODO: implement props
   List<Object?> get props => [title, exercises];
