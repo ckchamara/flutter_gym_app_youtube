@@ -41,8 +41,7 @@ class Exercise extends Equatable {
           prelude: prelude ?? this.prelude,
           duration: duration ?? this.duration,
           index: index ?? this.index,
-          startTime: startTime ?? this.startTime
-      );
+          startTime: startTime ?? this.startTime);
 
   @override
   // TODO: implement props

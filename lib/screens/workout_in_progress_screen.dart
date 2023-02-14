@@ -77,11 +77,12 @@ class WorkoutInProgressScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     InkWell(
-                      onTap: (){
-                        if(state is WorkoutInProgress){
+                      onTap: () {
+                        if (state is WorkoutInProgress) {
                           BlocProvider.of<WorkoutCubit>(context).pauseWorkout();
-                        }else if(state is WorkoutPaused) {
-                          BlocProvider.of<WorkoutCubit>(context).resumeWorkout();
+                        } else if (state is WorkoutPaused) {
+                          BlocProvider.of<WorkoutCubit>(context)
+                              .resumeWorkout();
                         }
                       },
                       child: Stack(

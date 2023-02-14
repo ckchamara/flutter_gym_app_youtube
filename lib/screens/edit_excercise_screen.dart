@@ -62,7 +62,9 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                                 setState(() {
                                   widget.workout!.exercises[widget.exIndex!] =
                                       widget.workout!.exercises[widget.exIndex!]
-                                          .copyWith(prelude: int.parse(controller.text));
+                                          .copyWith(
+                                              prelude:
+                                                  int.parse(controller.text));
                                   BlocProvider.of<WorkoutsCubit>(context)
                                       .saveWorkouts(
                                           widget.workout!, widget.workoutIndex);
@@ -88,70 +90,72 @@ class _EditExerciseScreenState extends State<EditExerciseScreen> {
                       })),
             )),
             Expanded(
-              flex: 3,
+                flex: 3,
                 child: TextField(
-              textAlign: TextAlign.center,
-              controller: _title,
-              onChanged: (value) => setState(() {
-                widget.workout!.exercises[widget.exIndex!] = widget
-                    .workout!.exercises[widget.exIndex!]
-                    .copyWith(title: value);
-                BlocProvider.of<WorkoutsCubit>(context)
-                    .saveWorkouts(widget.workout!, widget.workoutIndex);
-              }),
-            )),
+                  textAlign: TextAlign.center,
+                  controller: _title,
+                  onChanged: (value) => setState(() {
+                    widget.workout!.exercises[widget.exIndex!] = widget
+                        .workout!.exercises[widget.exIndex!]
+                        .copyWith(title: value);
+                    BlocProvider.of<WorkoutsCubit>(context)
+                        .saveWorkouts(widget.workout!, widget.workoutIndex);
+                  }),
+                )),
             Expanded(
                 child: InkWell(
-                  onLongPress: () => showDialog(
-                      context: context,
-                      builder: (_) {
-                        final controller = TextEditingController(
-                        text: widget.workout!.exercises[widget.exIndex!].duration
-                                .toString());
-                        return AlertDialog(
-                          content: TextField(
-                            controller: controller,
-                            decoration: const InputDecoration(
-                                labelText: "Duration (Seconds)"),
-                            keyboardType: TextInputType.number,
-                            inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.digitsOnly
-                            ],
-                          ),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  if (controller.text.isNotEmpty) {
-                                    Navigator.pop(context);
-                                    setState(() {
-                                      widget.workout!.exercises[widget.exIndex!] =
-                                          widget.workout!.exercises[widget.exIndex!]
-                                              .copyWith(duration: int.parse(controller.text));
-                                      BlocProvider.of<WorkoutsCubit>(context)
-                                          .saveWorkouts(
+              onLongPress: () => showDialog(
+                  context: context,
+                  builder: (_) {
+                    final controller = TextEditingController(
+                        text: widget
+                            .workout!.exercises[widget.exIndex!].duration
+                            .toString());
+                    return AlertDialog(
+                      content: TextField(
+                        controller: controller,
+                        decoration: const InputDecoration(
+                            labelText: "Duration (Seconds)"),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              if (controller.text.isNotEmpty) {
+                                Navigator.pop(context);
+                                setState(() {
+                                  widget.workout!.exercises[widget.exIndex!] =
+                                      widget.workout!.exercises[widget.exIndex!]
+                                          .copyWith(
+                                              duration:
+                                                  int.parse(controller.text));
+                                  BlocProvider.of<WorkoutsCubit>(context)
+                                      .saveWorkouts(
                                           widget.workout!, widget.workoutIndex);
-                                    });
-                                  }
-                                },
-                                child: Text("save"))
-                          ],
-                        );
-                      }),
-                  child: NumberPicker(
-                      itemHeight: 30,
-                      minValue: 0,
-                      maxValue: 3599,
-                      value: widget.workout!.exercises[widget.exIndex!].duration!,
-                      textMapper: (strVal) => formatTime(int.parse(strVal), false),
-                      onChanged: (value) => setState(() {
+                                });
+                              }
+                            },
+                            child: Text("save"))
+                      ],
+                    );
+                  }),
+              child: NumberPicker(
+                  itemHeight: 30,
+                  minValue: 0,
+                  maxValue: 3599,
+                  value: widget.workout!.exercises[widget.exIndex!].duration!,
+                  textMapper: (strVal) => formatTime(int.parse(strVal), false),
+                  onChanged: (value) => setState(() {
                         widget.workout!.exercises[widget.exIndex!] = widget
                             .workout!.exercises[widget.exIndex!]
                             .copyWith(duration: value);
                         BlocProvider.of<WorkoutsCubit>(context)
                             .saveWorkouts(widget.workout!, widget.workoutIndex);
                       })),
-                )),
-
+            )),
           ],
         )
       ],
