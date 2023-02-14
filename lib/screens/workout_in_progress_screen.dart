@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,9 +31,9 @@ class WorkoutInProgressScreen extends StatelessWidget {
         "workoutTitle": workout.title,
         "workoutProgress": workoutElapsed / workoutTotal,
         "workoutElapsed": workoutElapsed,
-        "totalExercise": workout.exercises.length,
+        "totalExercises": workout.exercises.length,
         "currentExerciseIndex": exercise.index!.toDouble(),
-        "workoutRemainingTime": workoutTotal - workoutElapsed,
+        "workoutRemaining": workoutTotal - workoutElapsed,
         "exerciseRemaining": exerciseRemaining,
         "exerciseProgress": exerciseElapsed / exerciseTotal,
         "isPrelude": isPrelude
@@ -65,6 +66,10 @@ class WorkoutInProgressScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(formatTime(stats['workoutElapsed'], true)),
+                          DotsIndicator(
+                            dotsCount: stats['totalExercises'],
+                            position: stats['currentExerciseIndex'],
+                          ),
                           Text(
                               '-${formatTime(stats['workoutRemaining'], true)}')
                         ],
@@ -72,7 +77,15 @@ class WorkoutInProgressScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     InkWell(
+                      onTap: (){
+                        if(state is WorkoutInProgress){
+                          BlocProvider.of<WorkoutCubit>(context).pauseWorkout();
+                        }else if(state is WorkoutPaused) {
+                          BlocProvider.of<WorkoutCubit>(context).resumeWorkout();
+                        }
+                      },
                       child: Stack(
+                        alignment: Alignment(0, 0),
                         children: [
                           Center(
                             child: SizedBox(
@@ -80,10 +93,21 @@ class WorkoutInProgressScreen extends StatelessWidget {
                               width: 220,
                               child: CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                  stats['isPrelude']?Colors.red : Colors.blue
-                                ),
+                                    stats['isPrelude']
+                                        ? Colors.red
+                                        : Colors.blue),
                                 strokeWidth: 25,
                                 value: stats['exerciseProgress'],
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: SizedBox(
+                              height: 300,
+                              width: 300,
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: Image.asset('assets/stopwatch.png'),
                               ),
                             ),
                           )

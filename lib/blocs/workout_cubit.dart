@@ -23,6 +23,10 @@ class WorkoutCubit extends Cubit<WorkoutState> {
         state.workout, (state as WorkoutEditingState).workoutIndex, exIndex));
   }
 
+  pauseWorkout() => emit(WorkoutPaused(state.workout, state.elapsed));
+
+  resumeWorkout() => emit(WorkoutInProgress(state.workout, state.elapsed));
+
   goHome() {
     emit(const WorkoutInitialState());
   }
@@ -33,13 +37,11 @@ class WorkoutCubit extends Cubit<WorkoutState> {
       if (wip.elapsed! < wip.workout!.getTotal()) {
         print("My elapsed time is ${wip.elapsed}");
         emit(WorkoutInProgress(wip.workout, wip.elapsed! + 1));
-      }else{
+      } else {
         _timer!.cancel();
         Wakelock.disable();
         emit(const WorkoutInitialState());
       }
-    } else {
-
     }
   }
 
